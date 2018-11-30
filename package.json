@@ -1,0 +1,14 @@
+{
+  "name": "wormhole-lib",
+  "version": "0.0.1",
+  "description": "A JavaScript Wormhole lib",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "wormhole"
+  ],
+  "author": "IFWallet",
+  "license": "MIT"
+}
