@@ -2,6 +2,7 @@
     "extends": "airbnb-base",
     "rules": {
         "semi": 0,
-        "no-bitwise": 0
+        "no-bitwise": 0,
+        "eol-last": "off"
     }
 }
