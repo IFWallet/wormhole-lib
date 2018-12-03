@@ -1,9 +1,15 @@
+const HDPriv = require('../utils/hdpriv')
+const {
+  mnemonic, utxos, srcaddr, whaddr,
+} = require('./constants')
+const newBurnTx = require('../src/burn')
 
-
-function test_burn() {
-  hdpriv = new HDPriv()
-  hdpriv.recoverFromMnemonic(mnemonic.join(' '))
-  xprivkey = hdpriv.getNode().toBase58()
-  burnnum = 100000000
+function testBurn() {
+  const hdpriv = new HDPriv()
+  hdpriv.recoverFromMnemonic(mnemonic)
+  const xprivkey = hdpriv.getNode().toBase58()
+  const burnnum = 100000000
   console.log(newBurnTx(xprivkey, srcaddr, utxos, whaddr, burnnum))
 }
+
+testBurn()

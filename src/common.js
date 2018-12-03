@@ -1,10 +1,9 @@
 const bitcoin = require('bitcoinjs-lib')
 const bip32 = require('bip32')
 const bchaddr = require('bchaddrjs')
-const sprintf = require('sprintf-js')
 const coinselect = require('coinselect')
-const coinfee = require('../common/fee')
-const Option = require('../option')
+const coinfee = require('../utils/fee')
+const Option = require('../utils/option')
 
 const ecosystem = {
   ECOSYSTEM_CONST: 1,
@@ -34,19 +33,19 @@ function convProtocolStrToHexString(str) {
   return `${Buffer.from(str).toString('hex')}00`
 }
 
-function newWHTx(xprivkey, srcaddr, utxos, dstaddr, dstnum, opreturn, mode, feerate=2) {
+function newWHTx(xprivkey, srcaddr, utxos, dstaddr, dstnum, opreturn, mode, feerate = 2) {
   const coin = 'BCH'
 
-  let receivers = []
+  const receivers = []
   if (dstaddr) {
     receivers.push({
       address: dstaddr,
-      value: dstnum
+      value: dstnum,
     })
 
     if (coinfee.isDustOutput(coin, dstnum)) {
-        console.error("dust output found")
-        return null
+      console.error('dust output found')
+      return null
     }
   }
 
@@ -79,34 +78,36 @@ function newWHTx(xprivkey, srcaddr, utxos, dstaddr, dstnum, opreturn, mode, feer
   }
 
   inputs.forEach((input) => {
-    if (input.address == srcaddr) return
+    if (input.address === srcaddr) return
     txb.addInput(input.txid, input.vout)
   })
 
   // op_return
-  ret = bitcoin.script.compile(
+  const ret = bitcoin.script.compile(
     [
       bitcoin.opcodes.OP_RETURN,
-      Buffer.from(opreturn, 'hex')
-    ]
+      Buffer.from(opreturn, 'hex'),
+    ],
   )
 
-  if (mode == 'whc') {
+  if (mode === 'whc') {
     if (dstaddr) {
       txb.addOutput(bchaddr.toLegacyAddress(dstaddr), dstnum) // wormhole addr
     }
 
     txb.addOutput(ret, 0) // payload
-    outputs.forEach((output) => {
-      if (output.address && output.address == dstaddr) return
+    outputs.forEach((item) => {
+      const output = item
+      if (output.address && output.address === dstaddr) return
       if (!output.address) {
         output.address = srcaddr
       }
       txb.addOutput(bchaddr.toLegacyAddress(output.address), output.value)
     })
   } else {
-    outputs.forEach((output) => {
-      if (dstaddr && output.address == dstaddr) return
+    outputs.forEach((item) => {
+      const output = item
+      if (dstaddr && output.address === dstaddr) return
       if (!output.address) {
         output.address = srcaddr
       }
@@ -124,16 +125,19 @@ function newWHTx(xprivkey, srcaddr, utxos, dstaddr, dstnum, opreturn, mode, feer
 
   // sign
   let idx = 0
-  for (utxo of inputs) {
+  inputs.forEach((utxo) => {
     const childNode = node.derivePath(utxo.path)
     const keypair = bitcoin.ECPair.fromWIF(childNode.toWIF(), Option.bitcoinNetwork)
-    txb.sign(idx++, keypair, null, hashType, utxo.value)
-  }
+    txb.sign(idx, keypair, null, hashType, utxo.value)
+    idx += 1
+  })
 
   const rawTx = txb.build().toHex()
   const tx = bitcoin.Transaction.fromHex(rawTx);
   const txid = tx.getId()
-  return {txid, rawTx, fee, inputs, outputs}
+  return {
+    txid, rawTx, fee, inputs, outputs,
+  }
 }
 
 

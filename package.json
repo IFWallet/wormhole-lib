@@ -14,9 +14,10 @@
   "dependencies": {
     "bchaddrjs": "^0.3.0",
     "bip32": "^1.0.2",
+    "bip39": "^2.5.0",
+    "bitcoinjs-lib": "github:ifwallet/bitcoinjs-lib",
     "coinselect": "^3.1.11",
-    "sprintf-js": "^1.1.1",
-    "bitcoinjs-lib": "github:ifwallet/bitcoinjs-lib"
+    "sprintf-js": "^1.1.1"
   },
   "devDependencies": {
     "eslint": "^5.9.0",
