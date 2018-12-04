@@ -13,23 +13,20 @@ function transferToken(xprivkey, srcaddr, utxos, tokenid, tokennum, dstaddr) {
     hexTokenid
   }${hexTokennum}`
 
-  console.log(opreturn)
-
   const dstnum = coinfee.getMinOutputValue('BCH')
   return whcomm.newWHTx(xprivkey, srcaddr, utxos, dstaddr, dstnum, opreturn)
 }
 
 
 // 转移所有token
-function transferAllToken(xprivkey, srcaddr, utxos, dstaddr, ecosystem) {
-  const hexEcosystem = sprintf.sprintf('%02s', ecosystem.toString(16))
+function transferAllToken(xprivkey, srcaddr, utxos, dstaddr) {
+  const hexEcosystem = sprintf.sprintf('%02s', whcomm.ecosystem.ECOSYSTEM_CONST.toString(16))
 
   const opreturn = `${whcomm.getWormHoleMagic()
     + whcomm.getWormHoleVersion()
   }0004${
     hexEcosystem}`
 
-  console.log(opreturn)
   const dstnum = coinfee.getMinOutputValue('BCH')
   return whcomm.newWHTx(xprivkey, srcaddr, utxos, dstaddr, dstnum, opreturn)
 }

@@ -27,24 +27,6 @@ utxos = [{
 srcaddr = '1DH47HAieAYDwbr4PqmHik2Z52WeTuWVyu'
 dstaddr = '1HRSMsu4uXnsz2F2zSyFGT6yv1k2xCQw6j'
 
-function test_burn() {
-  hdpriv = new HDPriv()
-  hdpriv.recoverFromMnemonic(mnemonic.join(' '))
-  xprivkey = hdpriv.getNode().toBase58()
-  burnnum = 100000000
-  console.log(newBurnTx(xprivkey, srcaddr, utxos, whaddr, burnnum))
-}
-
-function test_trans_token() {
-  hdpriv = new HDPriv()
-  hdpriv.recoverFromMnemonic(mnemonic.join(' '))
-  xprivkey = hdpriv.getNode().toBase58()
-  tokenid = 1
-  tokennum = 10
-
-  console.log(transToken(xprivkey, srcaddr, utxos, tokenid, tokennum, dstaddr))
-}
-
 function test_airdrop_token() {
   hdpriv = new HDPriv()
   hdpriv.recoverFromMnemonic(mnemonic.join(' '))

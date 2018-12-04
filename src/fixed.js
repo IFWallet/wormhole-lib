@@ -2,34 +2,30 @@ const sprintf = require('sprintf-js')
 const whcomm = require('./common')
 
 // 新建固定 token
-function newIssuanceFixed(xprivkey, srcaddr, utxos, token_name,
-    token_num, token_pricision, token_category, token_subcategory, token_url, token_desc) {
+function newIssuanceFixed(xprivkey, srcaddr, utxos, tokenName,
+  tokenNum, tokenPricision, tokenCategory, tokenSubcategory, tokenUrl, tokenDesc) {
+  const ecosystem = whcomm.ecosystem.ECOSYSTEM_CONST
+  const previousId = 0
+  const hexEcosystem = sprintf.sprintf('%02s', ecosystem.toString(16))
+  const hexPricision = sprintf.sprintf('%04s', tokenPricision.toString(16))
+  const hexPreviousId = sprintf.sprintf('%08s', previousId.toString(16))
+  const hexTokenNum = sprintf.sprintf('%016s', tokenNum.toString(16))
 
-  let ecosystem = 1
-  let previous_id = 0  // new token
-  let hex_ecosystem =
-    sprintf.sprintf('%02s', ecosystem.toString(16))
-  let hex_pricision = sprintf.sprintf('%04s', token_pricision.toString(16))
-  let hex_previous_id = sprintf.sprintf('%08s', previous_id.toString(16))
-  let hex_token_num = sprintf.sprintf('%016s', token_num.toString(16))
+  const opreturn = `${whcomm.getWormHoleMagic()
+    + whcomm.getWormHoleVersion()
+  }0032${
+    hexEcosystem
+  }${hexPricision
+  }${hexPreviousId
+  }${whcomm.convProtocolStrToHexString(tokenCategory)
+  }${whcomm.convProtocolStrToHexString(tokenSubcategory)
+  }${whcomm.convProtocolStrToHexString(tokenName)
+  }${whcomm.convProtocolStrToHexString(tokenUrl)
+  }${whcomm.convProtocolStrToHexString(tokenDesc)
+  }${hexTokenNum}`
 
-  let opreturn =
-    whcomm.getWormHoleMagic() +
-    whcomm.getWormHoleVersion() +
-    '0032' +
-    hex_ecosystem +
-    hex_pricision +
-    hex_previous_id +
-    whcomm.convProtocolStrToHexString(token_category) +
-    whcomm.convProtocolStrToHexString(token_subcategory) +
-    whcomm.convProtocolStrToHexString(token_name) +
-    whcomm.convProtocolStrToHexString(token_url) +
-    whcomm.convProtocolStrToHexString(token_desc) +
-    hex_token_num
-
-  console.log(opreturn)
   // build tx
-  hextx = whcomm.newWHTx(xprivkey, srcaddr, utxos, null, 0, opreturn, 'fixed', feerate=3)
+  const hextx = whcomm.newWHTx(xprivkey, srcaddr, utxos, null, 0, opreturn, 'fixed', feerate = 3)
   return hextx
 }
 
