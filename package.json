@@ -9,6 +9,10 @@
   "keywords": [
     "wormhole"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ifwallet/wormhole-lib.git"
+  },
   "author": "IFWallet",
   "license": "MIT",
   "dependencies": {
