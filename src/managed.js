@@ -2,7 +2,6 @@ const sprintf = require('sprintf-js')
 const whcomm = require('./common')
 const coinfee = require('../utils/fee')
 
-// 创建可管理 token
 function newIssuanceManaged(xprivkey, srcaddr, utxos, tokenName,
   tokenPricision, tokenCategory, tokenSubcategory, tokenUrl, tokenDesc) {
   const ecosystem = whcomm.ecosystem.ECOSYSTEM_CONST
@@ -28,7 +27,6 @@ function newIssuanceManaged(xprivkey, srcaddr, utxos, tokenName,
   return hextx
 }
 
-// 增发
 function grant(xprivkey, srcaddr, utxos, tokenid, tokenNum, info) {
   const ecosystem = 1
   const hexTokenid = sprintf.sprintf('%016s', tokenid.toString(16))
@@ -46,7 +44,6 @@ function grant(xprivkey, srcaddr, utxos, tokenid, tokenNum, info) {
   return hextx
 }
 
-// 销毁
 function revoke(xprivkey, srcaddr, utxos, tokenid, tokenNum, info) {
   const hexTokenid = sprintf.sprintf('%02s', tokenid.toString(16))
   const hexTokenNum = sprintf.sprintf('%016s', tokenNum.toString(16))
@@ -63,7 +60,6 @@ function revoke(xprivkey, srcaddr, utxos, tokenid, tokenNum, info) {
   return hextx
 }
 
-// 修改 token 的发行人
 function modifyTokenIssuser(xprivkey, srcIssuserWhcaddr, utxos, dstaddr, tokenid) {
   const hexTokenid = sprintf.sprintf('%08s', tokenid.toString(16))
 

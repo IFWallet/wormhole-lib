@@ -2,7 +2,6 @@ const sprintf = require('sprintf-js')
 const whcomm = require('./common')
 const coinfee = require('../utils/fee')
 
-// 新建众筹
 function newIssuanceCrowsale(xprivkey, srcaddr, utxos,
   tokenName, tokenNum, tokenPricision, tokenCategory,
   tokenSubcategory, tokenUrl, tokenDesc,
@@ -43,7 +42,6 @@ function newIssuanceCrowsale(xprivkey, srcaddr, utxos,
   return hextx
 }
 
-// 参与众筹
 function particrowsale(xprivkey, partiWhcaddr, utxos, issueAddr, tokenid, tokenNum) {
   const hexTokenid = sprintf.sprintf('%08s', tokenid.toString(16))
   const hexTokenNum = sprintf.sprintf('%016s', tokenNum.toString(16))
@@ -60,7 +58,6 @@ function particrowsale(xprivkey, partiWhcaddr, utxos, issueAddr, tokenid, tokenN
   return hextx
 }
 
-// 关闭众筹
 function closeParticrowsale(xprivkey, srcaddr, utxos, dstaddr, tokenid) {
   const hexTokenid = sprintf.sprintf('%08s', tokenid.toString(16))
 

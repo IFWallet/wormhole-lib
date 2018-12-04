@@ -1,7 +1,7 @@
 const sprintf = require('sprintf-js')
 const whcomm = require('./common')
 
-// 空投 token
+// airdrop token
 function airdropToken(xprivkey, srcaddr, utxos, airdropTokenid, tokennum, dstTokenid) {
   const hexAirdropTokenid = sprintf.sprintf('%08s', airdropTokenid.toString(16))
   const hexTokennum = sprintf.sprintf('%016s', tokennum.toString(16))

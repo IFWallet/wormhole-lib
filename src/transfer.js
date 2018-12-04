@@ -2,7 +2,6 @@ const sprintf = require('sprintf-js')
 const coinfee = require('../utils/fee')
 const whcomm = require('./common')
 
-// token 转账
 function transferToken(xprivkey, srcaddr, utxos, tokenid, tokennum, dstaddr) {
   const hexTokenid = sprintf.sprintf('%08s', tokenid.toString(16))
   const hexTokennum = sprintf.sprintf('%016s', tokennum.toString(16))
@@ -18,7 +17,6 @@ function transferToken(xprivkey, srcaddr, utxos, tokenid, tokennum, dstaddr) {
 }
 
 
-// 转移所有token
 function transferAllToken(xprivkey, srcaddr, utxos, dstaddr) {
   const hexEcosystem = sprintf.sprintf('%02s', whcomm.ecosystem.ECOSYSTEM_CONST.toString(16))
 

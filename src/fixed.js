@@ -1,7 +1,6 @@
 const sprintf = require('sprintf-js')
 const whcomm = require('./common')
 
-// 新建固定 token
 function newIssuanceFixed(xprivkey, srcaddr, utxos, tokenName,
   tokenNum, tokenPricision, tokenCategory, tokenSubcategory, tokenUrl, tokenDesc) {
   const ecosystem = whcomm.ecosystem.ECOSYSTEM_CONST
