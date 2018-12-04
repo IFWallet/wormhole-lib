@@ -1,11 +1,11 @@
 const bitcoin = require('bitcoinjs-lib')
 
 class Option {
-  static enableBitcoinMainnet () {
+  static enableBitcoinMainnet() {
     Option.bitcoinNetwork = bitcoin.networks.bitcoin
   }
 
-  static enableBitcoinTestnet () {
+  static enableBitcoinTestnet() {
     Option.bitcoinNetwork = bitcoin.networks.testnet
   }
 }

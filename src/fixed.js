@@ -25,7 +25,7 @@ function newIssuanceFixed(xprivkey, srcaddr, utxos, tokenName,
   }${hexTokenNum}`
 
   // build tx
-  const hextx = whcomm.newWHTx(xprivkey, srcaddr, utxos, null, 0, opreturn, 'fixed', feerate = 3)
+  const hextx = whcomm.newWHTx(xprivkey, srcaddr, utxos, null, 0, opreturn, 'fixed', 3)
   return hextx
 }
 
